@@ -1,53 +1,44 @@
 # Exp_2_Simple-Spring-Boot-MVC-Application
 
 ## AIM:
+
 To develop a Simple Spring Boot MVC (Model-View-Controller) Application that uses a Controller to handle HTTP requests, a Model to pass data, and a View (Thymeleaf) to render dynamic HTML pages.
 
 ## ALGORITHM:
-Create a New Spring Boot Project:
 
-Use Spring Initializr
+1. Create a New Spring Boot Project:
+   - Use Spring Initializr
+   - Add dependencies:
+     - Spring Web
+     - Thymeleaf
 
-Add dependencies:
+2. Set Up Project Structure:
+   - Create the main class annotated with @SpringBootApplication
+   - Create a Controller class using @Controller
+   - Add HTML templates under src/main/resources/templates
 
-Spring Web
+3. Create a Controller:
+   - Define a method to handle HTTP GET requests using @GetMapping
+   - Return a view name (HTML page name) from the controller
+   - Pass data to the view using Model object
 
-Thymeleaf
+4. Create a Model (Optional):
+   - Define a simple POJO class if you need to pass structured data to the view
 
-Set Up Project Structure:
+5. Create View Pages (HTML using Thymeleaf):
+   - Create an HTML file inside the templates folder
+   - Use Thymeleaf syntax (e.g., ${name}) to render dynamic content
 
-Create the main class annotated with @SpringBootApplication
+6. Run the Application:
+   - Run the Spring Boot application from your IDE or command line
 
-Create a Controller class using @Controller
+7. Access the Application:
+   - Open a browser and navigate to:
+     http://localhost:8080/
 
-Add HTML templates under src/main/resources/templates
-
-Create a Controller:
-
-Define a method to handle HTTP GET requests using @GetMapping
-
-Return a view name (HTML page name) from the controller
-
-Pass data to the view using Model object
-
-Create a Model (Optional):
-
-Define a simple POJO class if you need to pass structured data to the view
-
-Create View Pages (HTML using Thymeleaf):
-
-Create an HTML file inside the templates folder
-
-Use Thymeleaf syntax (e.g., ${name}) to render dynamic content
-
-Run the Application:
-
-Run the Spring Boot application from your IDE or command line
-
-Access the Application:
-
-Open a browser and navigate to http://localhost:8080/
 ## PROGRAM
+
+```
 spring-mvc-demo/
 ├── src/
 │   └── main/
@@ -61,42 +52,80 @@ spring-mvc-demo/
 │           └── application.properties
 ├── pom.xml
 
+```
+
 ### pom.xml :
 
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
-                             http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>4.0.6</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	<groupId>com.example</groupId>
+	<artifactId>mvc</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name/>
+	<description/>
+	<url/>
+	<licenses>
+		<license/>
+	</licenses>
+	<developers>
+		<developer/>
+	</developers>
+	<scm>
+		<connection/>
+		<developerConnection/>
+		<tag/>
+		<url/>
+	</scm>
+	<properties>
+		<java.version>17</java.version>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-webmvc</artifactId>
+		</dependency>
 
-    <groupId>com.example</groupId>
-    <artifactId>spring-mvc-demo</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>Spring MVC Demo</name>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-webmvc-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
 
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.1.2</version>
-    </parent>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
 
-    <dependencies>
-        <!-- Spring Web -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-
-        <!-- Thymeleaf for View Rendering -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-thymeleaf</artifactId>
-        </dependency>
-    </dependencies>
 </project>
+
+```
 
 ### MvcApplication.java (Main Class):
 
+```java
 package com.example.mvc;
 
 import org.springframework.boot.SpringApplication;
@@ -108,9 +137,11 @@ public class MvcApplication {
         SpringApplication.run(MvcApplication.class, args);
     }
 }
+```
 
 ### HomeController.java (Controller):
 
+```java
 package com.example.mvc;
 
 import org.springframework.stereotype.Controller;
@@ -126,19 +157,27 @@ public class HomeController {
         return "index";  // refers to index.html in templates folder
     }
 }
+```
+
 ### index.html (View – inside src/main/resources/templates/):
 
+```html
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
+  <head>
     <title>Spring MVC</title>
-</head>
-<body>
+  </head>
+  <body>
     <h1 th:text="${message}">Default Message</h1>
-</body>
+  </body>
 </html>
+```
 
 ### application.properties:
- server.port=8081
 
+```java
+spring.application.name=mvc
+```
+Output:
 
+![alt text](Screenshots/image.png)
